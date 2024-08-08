@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #searchContainer {
+            margin-bottom: 20px;
+        }
+        .result {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .result img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="searchContainer">
+        <h1>Search System</h1>
+        <input type="text" id="searchInput" placeholder="Search by name, year level, or ID">
+        <button onclick="search()">Search</button>
+    </div>
+    <div id="resultsContainer"></div>
+
+    <script>
+        const data = [
+            { name: 'Alice Johnson', year: 'Year 1', id: '2345' },
+            { name: 'Bob Smith', year: 'Year 2', id: '3456' },
+            { name: 'Catherine Lee', year: 'Year 3', id: '4567' },
+            { name: 'David Martinez', year: 'Year 4', id: '5678' },
+            { name: 'Emily Wilson', year: 'Year 5', id: '6789' },
+            { name: 'Frank Brown', year: 'Year 1', id: '7890' },
+            { name: 'Grace Taylor', year: 'Year 2', id: '8901' },
+            { name: 'Henry Anderson', year: 'Year 3', id: '9012' },
+            { name: 'Ivy Thomas', year: 'Year 4', id: '1234' },
+            { name: 'James Jackson', year: 'Year 5', id: '2346' },
+            { name: 'Katherine Harris', year: 'Year 6', id: '3457' },
+            { name: 'Liam White', year: 'Year 6', id: '4568' },
+            { name: 'Mia Clark', year: 'Graduate (2023)', id: '5679' },
+            { name: 'Noah Lewis', year: 'Graduate (2023)', id: '6780' },
+            { name: 'Olivia Walker', year: 'Graduate (2024)', id: '7891' },
+            { name: 'Paul Robinson', year: 'Graduate (2024)', id: '8902' },
+            { name: 'Quinn Lewis', year: 'Graduate (2024)', id: '9013' },
+            { name: 'Riley King', year: 'Graduate (2025)', id: '1235' },
+            { name: 'Sophie Wright', year: 'Graduate (2025)', id: '2347' },
+            { name: 'Thomas Scott', year: 'Graduate (2025)', id: '3458' }
+        ];
+
+        function search() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '';
+
+            const results = data.filter(item => {
+                return item.name.toLowerCase().includes(searchInput) ||
+                       item.year.toLowerCase().includes(searchInput) ||
+                       item.id.includes(searchInput);
+            });
+
+            if (results.length > 0) {
+                results.forEach(item => {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'result';
+                    resultDiv.innerHTML = `
+                        <strong>Name:</strong> ${item.name}<br>
+                        <strong>Year:</strong> ${item.year}<br>
+                        <strong>ID:</strong> ${item.id}
+                    `;
+                    resultsContainer.appendChild(resultDiv);
+                });
+            } else {
+                resultsContainer.innerHTML = '<p>No results found</p>';
+            }
+        }
+    </script>
+</body>
+</html>
