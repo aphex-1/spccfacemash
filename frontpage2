@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SPCC Facemash</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+		}
+		
+		.container {
+			width: 80%;
+			margin: 40px auto;
+			text-align: center;
+		}
+		
+		.search-bar {
+			width: 50%;
+			height: 30px;
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+		
+		.search-button {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		
+		.search-button:hover {
+			background-color: #3e8e41;
+		}
+		
+		.search-results {
+			margin-top: 20px;
+		}
+		
+		.search-result {
+			background-color: #f9f9f9;
+			padding: 10px;
+			border-bottom: 1px solid #ccc;
+		}
+		
+		.search-result:hover {
+			background-color: #f2f2f2;
+		}
+		
+		.footer {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background-color: #333;
+			color: #fff;
+			text-align: center;
+			padding: 10px;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>SPCC Facemash</h1>
+		<p>Serves as an alternative to inputting iLearn codes. Search by first name, last name, year level, classes, etc.</p>
+		<input type="search" id="search-input" class="search-bar" placeholder="Search...">
+		<button id="search-button" class="search-button">Search</button>
+		<div id="search-results" class="search-results"></div>
+	</div>
+	<div class="footer">
+		<p>An aphex-1 production</p>
+	</div>
+	
+	<script>
+		const searchInput = document.getElementById('search-input');
+		const searchButton = document.getElementById('search-button');
+		const searchResults = document.getElementById('search-results');
+		
+		searchButton.addEventListener('click', () => {
+			const query = searchInput.value.trim();
+			// TO DO: implement search functionality here
+			searchResults.innerHTML = '';
+			// for now, just display a message
+			searchResults.innerHTML = `<p>No results found for "${query}"</p>`;
+		});
+	</script>
+</body>
+</html>
