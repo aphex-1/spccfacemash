@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPCC Facemash - User Search System</title>
+    <style>
+        /* Basic styling for the search form */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        #searchContainer {
+            margin-bottom: 20px;
+        }
+        #searchContainer input {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #resultsContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .result {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .result img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Search Form -->
+    <div id="searchContainer">
+        <h1>User Search System</h1>
+        <input type="text" id="nameInput" placeholder="Search by first name, last name, or full name">
+        <input type="text" id="yearLevelInput" placeholder="Search by year level">
+        <input type="text" id="graduationYearInput" placeholder="Search by graduation year">
+        <input type="text" id="idNumberInput" placeholder="Search by ID number">
+        <button onclick="performSearch()">Search</button>
+    </div>
+
+    <!-- Search Results -->
+    <div id="resultsContainer"></div>
+
+    <script>
+        // Sample data for demonstration (replace with actual API data)
+        const users = [
+            { id: 1, firstName: "John", lastName: "Doe", yearLevel: "10", graduationYear: "", idNumber: "12345", image: "https://via.placeholder.com/100" },
+            { id: 2, firstName: "Jane", lastName: "Smith", yearLevel: "11", graduationYear: "", idNumber: "67890", image: "https://via.placeholder.com/100" },
+            { id: 3, firstName: "Emily", lastName: "Wilson", yearLevel: "", graduationYear: "2024", idNumber: "54321", image: "https://via.placeholder.com/100" },
+            { id: 4, firstName: "David", lastName: "Martinez", yearLevel: "", graduationYear: "2023", idNumber: "98765", image: "https://via.placeholder.com/100" },
+            { id: 5, firstName: "Alice", lastName: "Johnson", yearLevel: "12", graduationYear: "", idNumber: "34567", image: "https://via.placeholder.com/100" },
+            // Add more user objects as needed
+        ];
+
+        function performSearch() {
+            const nameInput = document.getElementById('nameInput').value.toLowerCase();
+            const yearLevelInput = document.getElementById('yearLevelInput').value.toLowerCase();
+            const graduationYearInput = document.getElementById('graduationYearInput').value.toLowerCase();
+            const idNumberInput = document.getElementById('idNumberInput').value.toLowerCase();
+            
+            const results = users.filter(user => 
+                (nameInput === '' || `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`.includes(nameInput)) &&
+                (yearLevelInput === '' || user.yearLevel.toLowerCase().includes(yearLevelInput)) &&
+                (graduationYearInput === '' || user.graduationYear.toLowerCase().includes(graduationYearInput)) &&
+                (idNumberInput === '' || user.idNumber.toLowerCase().includes(idNumberInput))
+            );
+            
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '';
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="no-results">No results found</div>';
+                return;
+            }
+
+            results.forEach(user => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result';
+                resultDiv.innerHTML = `
+                    <img src="${user.image}" alt="${user.firstName} ${user.lastName}">
+                    <strong>${user.firstName} ${user.lastName}</strong><br>
+                    <strong>Year Level/Graduation Year:</strong> ${user.yearLevel || user.graduationYear}<br>
+                    <strong>Student ID Number:</strong> ${user.idNumber}
+                `;
+                resultsContainer.appendChild(resultDiv);
+            });
+        }
+    </script>
+</body>
+</html>
