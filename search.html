@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search System</title>
+    <style>
+        /* Basic styling for the search form */
+        #searchForm {
+            margin: 20px;
+        }
+        #searchForm input {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #searchResults {
+            margin: 20px;
+        }
+        .resultItem {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .resultItem img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .resultItem p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Search Form -->
+    <div id="searchForm">
+        <input type="text" id="nameInput" placeholder="Search by name">
+        <input type="text" id="yearLevelInput" placeholder="Search by year level">
+        <input type="text" id="graduationYearInput" placeholder="Search by graduation year">
+        <input type="text" id="idNumberInput" placeholder="Search by ID number">
+        <button onclick="performSearch()">Search</button>
+    </div>
+
+    <!-- Search Results -->
+    <div id="searchResults"></div>
+
+    <script>
+        // Sample data for demonstration (replace with actual API data)
+        const users = [
+            { id: 1, name: "John Doe", yearLevel: "10", graduationYear: "2025", idNumber: "12345", image: "https://via.placeholder.com/50" },
+            { id: 2, name: "Jane Smith", yearLevel: "11", graduationYear: "2024", idNumber: "67890", image: "https://via.placeholder.com/50" },
+            // Add more user objects as needed
+        ];
+
+        function performSearch() {
+            const name = document.getElementById('nameInput').value.toLowerCase();
+            const yearLevel = document.getElementById('yearLevelInput').value.toLowerCase();
+            const graduationYear = document.getElementById('graduationYearInput').value.toLowerCase();
+            const idNumber = document.getElementById('idNumberInput').value.toLowerCase();
+            
+            const results = users.filter(user => 
+                (name === '' || user.name.toLowerCase().includes(name)) &&
+                (yearLevel === '' || user.yearLevel.toLowerCase().includes(yearLevel)) &&
+                (graduationYear === '' || user.graduationYear.toLowerCase().includes(graduationYear)) &&
+                (idNumber === '' || user.idNumber.toLowerCase().includes(idNumber))
+            );
+            
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '';
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p>No results found</p>';
+                return;
+            }
+
+            results.forEach(user => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'resultItem';
+                resultItem.innerHTML = `
+                    <img src="${user.image}" alt="${user.name}">
+                    <p>Name: ${user.name}</p>
+                    <p>Year Level: ${user.yearLevel}</p>
+                    <p>Graduation Year: ${user.graduationYear}</p>
+                    <p>ID Number: ${user.idNumber}</p>
+                `;
+                resultsDiv.appendChild(resultItem);
+            });
+        }
+    </script>
+</body>
+</html>
