@@ -71,4 +71,27 @@
 <body>
     <div class="container">
         <h1>SPCC Facemash</h1>
-        <p>Serves as an alternative to inputti
+        <p>Serves as an alternative to inputting iLearn codes. Search by first name, last name, year level, classes, etc.</p>
+        <input type="search" id="search-input" class="search-bar" placeholder="Search...">
+        <button id="search-button" class="search-button">Search</button>
+        <div id="search-results" class="search-results"></div>
+    </div>
+    <div class="footer">
+        <p>An aphex-1 production</p>
+    </div>
+    
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const searchResults = document.getElementById('search-results');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            // TO DO: implement search functionality here
+            searchResults.innerHTML = '';
+            // for now, just display a message
+            searchResults.innerHTML = `<p>No results found for "${query}"</p>`;
+        });
+    </script>
+</body>
+</html>
