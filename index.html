@@ -97,14 +97,18 @@
         const searchButton = document.getElementById('search-button');
         const searchResults = document.getElementById('search-results');
 
-        const placeholders = Array.from({ length: 30 }, (_, index) => ({
-            name: `Person ${index + 1}`,
-            firstName: `First ${index + 1}`,
-            lastName: `Last ${index + 1}`,
-            yearLevel: Math.floor(Math.random() * 4) + 1,
-            graduated: Math.random() < 0.5 ? 'Yes' : 'No',
-            id: index + 1
-        }));
+       const placeholders = [
+    { name: 'Person 1', firstName: 'Alan', lastName: 'Smith', yearLevel: 3, graduated: 'No', id: 1001 },
+    { name: 'Person 2', firstName: 'Sarah', lastName: 'Johnson', yearLevel: 2, graduated: 'No', id: 1002 },
+    { name: 'Person 3', firstName: 'Alan', lastName: 'Alimni', yearLevel: 4, graduated: 'Yes', id: 1003 },
+    { name: 'Person 4', firstName: 'Emily', lastName: 'Davis', yearLevel: 1, graduated: 'No', id: 1004 },
+    { name: 'Person 5', firstName: 'Brian', lastName: 'Lee', yearLevel: 3, graduated: 'No', id: 1005 },
+    { name: 'Person 6', firstName: 'Jessica', lastName: 'Wilson', yearLevel: 2, graduated: 'No', id: 1006 },
+    { name: 'Person 7', firstName: 'Alan', lastName: 'Black', yearLevel: 3, graduated: 'No', id: 1007 },
+    { name: 'Person 8', firstName: 'Megan', lastName: 'White', yearLevel: 4, graduated: 'Yes', id: 1008 },
+    { name: 'Person 9', firstName: 'Daniel', lastName: 'Brown', yearLevel: 1, graduated: 'No', id: 1009 },
+    { name: 'Person 10', firstName: 'Laura', lastName: 'Green', yearLevel: 2, graduated: 'No', id: 1010 }
+];
 
         function renderResults(results) {
             searchResults.innerHTML = results.map(person => `
