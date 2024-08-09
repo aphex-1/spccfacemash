@@ -60,7 +60,7 @@
         .search-result img {
             width: 150px;
             height: 150px;
-            border-radius: 50%;
+            border-radius: 0;
         }
         
         .search-result p {
@@ -97,20 +97,25 @@
         const searchButton = document.getElementById('search-button');
         const searchResults = document.getElementById('search-results');
 
-       const placeholders = [
-    { name: 'Person 1', firstName: 'Alan', lastName: 'Smith', yearLevel: 3, graduated: 'No', id: 1001 },
-    { name: 'Person 2', firstName: 'Sarah', lastName: 'Johnson', yearLevel: 2, graduated: 'No', id: 1002 },
-    { name: 'Person 3', firstName: 'Alan', lastName: 'Alimni', yearLevel: 4, graduated: 'Yes', id: 1003 },
-    { name: 'Person 4', firstName: 'Emily', lastName: 'Davis', yearLevel: 1, graduated: 'No', id: 1004 },
-    { name: 'Person 5', firstName: 'Brian', lastName: 'Lee', yearLevel: 3, graduated: 'No', id: 1005 },
-    { name: 'Person 6', firstName: 'Jessica', lastName: 'Wilson', yearLevel: 2, graduated: 'No', id: 1006 },
-    { name: 'Person 7', firstName: 'Alan', lastName: 'Black', yearLevel: 3, graduated: 'No', id: 1007 },
-    { name: 'Person 8', firstName: 'Megan', lastName: 'White', yearLevel: 4, graduated: 'Yes', id: 1008 },
-    { name: 'Person 9', firstName: 'Daniel', lastName: 'Brown', yearLevel: 1, graduated: 'No', id: 1009 },
-    { name: 'Person 10', firstName: 'Laura', lastName: 'Green', yearLevel: 2, graduated: 'No', id: 1010 }
-];
+        const placeholders = [
+            { name: 'Person 1', firstName: 'Alan', lastName: 'Smith', yearLevel: 3, graduated: 'No', id: 1001 },
+            { name: 'Person 2', firstName: 'Sarah', lastName: 'Johnson', yearLevel: 2, graduated: 'No', id: 1002 },
+            { name: 'Person 3', firstName: 'Alan', lastName: 'Alimni', yearLevel: 4, graduated: 'Yes', id: 1003 },
+            { name: 'Person 4', firstName: 'Emily', lastName: 'Davis', yearLevel: 1, graduated: 'No', id: 1004 },
+            { name: 'Person 5', firstName: 'Brian', lastName: 'Lee', yearLevel: 3, graduated: 'No', id: 1005 },
+            { name: 'Person 6', firstName: 'Jessica', lastName: 'Wilson', yearLevel: 2, graduated: 'No', id: 1006 },
+            { name: 'Person 7', firstName: 'Alan', lastName: 'Black', yearLevel: 3, graduated: 'No', id: 1007 },
+            { name: 'Person 8', firstName: 'Megan', lastName: 'White', yearLevel: 4, graduated: 'Yes', id: 1008 },
+            { name: 'Person 9', firstName: 'Daniel', lastName: 'Brown', yearLevel: 1, graduated: 'No', id: 1009 },
+            { name: 'Person 10', firstName: 'Laura', lastName: 'Green', yearLevel: 2, graduated: 'No', id: 1010 }
+        ];
 
         function renderResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<p>There are no results for this search</p>';
+                return;
+            }
+
             searchResults.innerHTML = results.map(person => `
                 <div class="search-result">
                     <img src="https://via.placeholder.com/150" alt="${person.firstName} ${person.lastName}">
@@ -124,12 +129,25 @@
 
         searchButton.addEventListener('click', () => {
             const query = searchInput.value.trim().toLowerCase();
-            const results = placeholders.filter(person => 
-                person.firstName.toLowerCase().includes(query) ||
-                person.lastName.toLowerCase().includes(query) ||
-                (person.graduated.toLowerCase() === query) ||
-                person.id.toString().includes(query)
-            );
+            let results = [];
+
+            if (!isNaN(query)) {
+                // Query is a number, search by year level
+                const yearLevel = parseInt(query, 10);
+                results = placeholders.filter(person => person.yearLevel === yearLevel);
+            } else if (query.length === 4 && !isNaN(query)) {
+                // Query is a 4-digit number, search by ID
+                const id = parseInt(query, 10);
+                results = placeholders.filter(person => person.id === id);
+            } else {
+                // Query is a string, search by name or graduated status
+                results = placeholders.filter(person => 
+                    person.firstName.toLowerCase().includes(query) ||
+                    person.lastName.toLowerCase().includes(query) ||
+                    person.graduated.toLowerCase().includes(query)
+                );
+            }
+
             renderResults(results);
         });
     </script>
