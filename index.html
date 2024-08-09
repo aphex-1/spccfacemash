@@ -139,7 +139,7 @@
             { firstName: 'Sebastian', lastName: 'Evans', yearLevel: 4, graduated: 'Yes', id: 1038 },
             { firstName: 'Zoe', lastName: 'Morris', yearLevel: 3, graduated: 'No', id: 1039 },
             { firstName: 'William', lastName: 'Mitchell', yearLevel: 2, graduated: 'No', id: 1040 },
-            // Additional entries start here
+            // Additional entries
             { firstName: 'Chloe', lastName: 'Rodriguez', yearLevel: 2, graduated: 'No', id: 1041 },
             { firstName: 'Ethan', lastName: 'Gonzalez', yearLevel: 4, graduated: 'Yes', id: 1042 },
             { firstName: 'Aiden', lastName: 'Bennett', yearLevel: 3, graduated: 'No', id: 1043 },
@@ -185,9 +185,11 @@
 
         function similarResults(query, person) {
             const lowerQuery = query.toLowerCase();
-            return person.firstName.toLowerCase().includes(lowerQuery) ||
-                   person.lastName.toLowerCase().includes(lowerQuery) ||
-                   person.graduated.toLowerCase().includes(lowerQuery);
+            // Check for matches in first name first, then last name
+            const matchFirstName = person.firstName.toLowerCase().includes(lowerQuery);
+            const matchLastName = person.lastName.toLowerCase().includes(lowerQuery);
+
+            return matchFirstName || (matchLastName && !matchFirstName);
         }
 
         searchButton.addEventListener('click', () => {
