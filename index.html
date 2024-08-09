@@ -42,17 +42,29 @@
         
         .search-results {
             margin-top: 20px;
-            text-align: left;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
         .search-result {
             background-color: #f9f9f9;
             padding: 10px;
-            border-bottom: 1px solid #ccc;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            text-align: center;
+            width: 150px;
         }
         
-        .search-result:hover {
-            background-color: #f2f2f2;
+        .search-result img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+        
+        .search-result p {
+            margin: 5px 0;
         }
         
         .footer {
@@ -84,13 +96,37 @@
         const searchInput = document.getElementById('search-input');
         const searchButton = document.getElementById('search-button');
         const searchResults = document.getElementById('search-results');
-        
+
+        const placeholders = Array.from({ length: 30 }, (_, index) => ({
+            name: `Person ${index + 1}`,
+            firstName: `First ${index + 1}`,
+            lastName: `Last ${index + 1}`,
+            yearLevel: Math.floor(Math.random() * 4) + 1,
+            graduated: Math.random() < 0.5 ? 'Yes' : 'No',
+            id: index + 1
+        }));
+
+        function renderResults(results) {
+            searchResults.innerHTML = results.map(person => `
+                <div class="search-result">
+                    <img src="https://via.placeholder.com/150" alt="${person.firstName} ${person.lastName}">
+                    <p>${person.firstName} ${person.lastName}</p>
+                    <p>Year: ${person.yearLevel}</p>
+                    <p>Graduated: ${person.graduated}</p>
+                    <p>ID: ${person.id}</p>
+                </div>
+            `).join('');
+        }
+
         searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            // TO DO: implement search functionality here
-            searchResults.innerHTML = '';
-            // for now, just display a message
-            searchResults.innerHTML = `<p>No results found for "${query}"</p>`;
+            const query = searchInput.value.trim().toLowerCase();
+            const results = placeholders.filter(person => 
+                person.firstName.toLowerCase().includes(query) ||
+                person.lastName.toLowerCase().includes(query) ||
+                (person.graduated.toLowerCase() === query) ||
+                person.id.toString().includes(query)
+            );
+            renderResults(results);
         });
     </script>
 </body>
