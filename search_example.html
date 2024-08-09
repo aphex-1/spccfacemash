@@ -7,25 +7,35 @@
     <style>
         /* Basic styling for the search form */
         #searchForm {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
             margin: 20px;
         }
-        #searchForm input {
-            margin: 5px;
+        #searchForm input, #searchForm button {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
         #searchResults {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
             margin: 20px;
         }
         .resultItem {
+            display: flex;
+            align-items: center;
             padding: 10px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
         }
         .resultItem img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            margin-right: 10px;
         }
         .resultItem p {
             margin: 0;
@@ -35,8 +45,8 @@
 <body>
     <!-- Search Form -->
     <div id="searchForm">
-        <input type="text" id="nameInput" placeholder="Search by name or name with year (e.g., 'Alan 9')">
-        <input type="text" id="yearLevelInput" placeholder="Search by year level or 'Alumni'">
+        <input type="text" id="nameInput" placeholder="Search by name">
+        <input type="text" id="yearLevelInput" placeholder="Search by year level">
         <input type="text" id="idNumberInput" placeholder="Search by ID number">
         <button onclick="performSearch()">Search</button>
     </div>
@@ -47,55 +57,48 @@
     <script>
         // Sample data for demonstration (replace with actual API data)
         const users = [
-            { id: 1, name: "Alice Johnson", yearLevel: "1", idNumber: "2345", image: "https://via.placeholder.com/50" },
-            { id: 2, name: "Bob Smith", yearLevel: "2", idNumber: "3456", image: "https://via.placeholder.com/50" },
-            { id: 3, name: "Catherine Lee", yearLevel: "3", idNumber: "4567", image: "https://via.placeholder.com/50" },
-            { id: 4, name: "David Martinez", yearLevel: "4", idNumber: "5678", image: "https://via.placeholder.com/50" },
-            { id: 5, name: "Emily Wilson", yearLevel: "5", idNumber: "6789", image: "https://via.placeholder.com/50" },
-            { id: 6, name: "Frank Brown", yearLevel: "1", idNumber: "7890", image: "https://via.placeholder.com/50" },
-            { id: 7, name: "Grace Taylor", yearLevel: "2", idNumber: "8901", image: "https://via.placeholder.com/50" },
-            { id: 8, name: "Henry Anderson", yearLevel: "3", idNumber: "9012", image: "https://via.placeholder.com/50" },
-            { id: 9, name: "Ivy Thomas", yearLevel: "4", idNumber: "1234", image: "https://via.placeholder.com/50" },
-            { id: 10, name: "James Jackson", yearLevel: "5", idNumber: "2346", image: "https://via.placeholder.com/50" },
-            { id: 11, name: "Katherine Harris", yearLevel: "6", idNumber: "3457", image: "https://via.placeholder.com/50" },
-            { id: 12, name: "Liam White", yearLevel: "6", idNumber: "4568", image: "https://via.placeholder.com/50" },
-            { id: 13, name: "Mia Clark", yearLevel: "Alumni", idNumber: "5679", image: "https://via.placeholder.com/50" },
-            { id: 14, name: "Noah Lewis", yearLevel: "Alumni", idNumber: "6780", image: "https://via.placeholder.com/50" },
-            { id: 15, name: "Olivia Walker", yearLevel: "Alumni", idNumber: "7891", image: "https://via.placeholder.com/50" },
-            { id: 16, name: "Paul Robinson", yearLevel: "Alumni", idNumber: "8902", image: "https://via.placeholder.com/50" },
-            { id: 17, name: "Quinn Lewis", yearLevel: "Alumni", idNumber: "9013", image: "https://via.placeholder.com/50" },
-            { id: 18, name: "Riley King", yearLevel: "Alumni", idNumber: "1235", image: "https://via.placeholder.com/50" },
-            { id: 19, name: "Sophie Wright", yearLevel: "Alumni", idNumber: "2347", image: "https://via.placeholder.com/50" },
-            { id: 20, name: "Thomas Scott", yearLevel: "Alumni", idNumber: "3458", image: "https://via.placeholder.com/50" },
-            // Add more user objects as needed
+            { name: "Alice Johnson", yearLevel: "1", idNumber: "2345", image: "https://via.placeholder.com/50" },
+            { name: "Bob Smith", yearLevel: "2", idNumber: "3456", image: "https://via.placeholder.com/50" },
+            { name: "Catherine Lee", yearLevel: "3", idNumber: "4567", image: "https://via.placeholder.com/50" },
+            { name: "David Martinez", yearLevel: "4", idNumber: "5678", image: "https://via.placeholder.com/50" },
+            { name: "Emily Wilson", yearLevel: "5", idNumber: "6789", image: "https://via.placeholder.com/50" },
+            { name: "Frank Brown", yearLevel: "1", idNumber: "7890", image: "https://via.placeholder.com/50" },
+            { name: "Grace Taylor", yearLevel: "2", idNumber: "8901", image: "https://via.placeholder.com/50" },
+            { name: "Henry Anderson", yearLevel: "3", idNumber: "9012", image: "https://via.placeholder.com/50" },
+            { name: "Ivy Thomas", yearLevel: "4", idNumber: "1234", image: "https://via.placeholder.com/50" },
+            { name: "James Jackson", yearLevel: "5", idNumber: "2346", image: "https://via.placeholder.com/50" },
+            { name: "Katherine Harris", yearLevel: "6", idNumber: "3457", image: "https://via.placeholder.com/50" },
+            { name: "Liam White", yearLevel: "6", idNumber: "4568", image: "https://via.placeholder.com/50" },
+            { name: "Mia Clark", yearLevel: "Alumni", idNumber: "5679", image: "https://via.placeholder.com/50" },
+            { name: "Noah Lewis", yearLevel: "Alumni", idNumber: "6780", image: "https://via.placeholder.com/50" },
+            { name: "Olivia Walker", yearLevel: "Alumni", idNumber: "7891", image: "https://via.placeholder.com/50" },
+            { name: "Paul Robinson", yearLevel: "Alumni", idNumber: "8902", image: "https://via.placeholder.com/50" },
+            { name: "Quinn Lewis", yearLevel: "Alumni", idNumber: "9013", image: "https://via.placeholder.com/50" },
+            { name: "Riley King", yearLevel: "Alumni", idNumber: "1235", image: "https://via.placeholder.com/50" },
+            { name: "Sophie Wright", yearLevel: "Alumni", idNumber: "2347", image: "https://via.placeholder.com/50" },
+            { name: "Thomas Scott", yearLevel: "Alumni", idNumber: "3458", image: "https://via.placeholder.com/50" }
         ];
 
         function performSearch() {
-            const name = document.getElementById('nameInput').value.toLowerCase().trim();
-            const yearLevel = document.getElementById('yearLevelInput').value.toLowerCase().trim();
-            const idNumber = document.getElementById('idNumberInput').value.toLowerCase().trim();
+            const name = document.getElementById('nameInput').value.toLowerCase();
+            const yearLevel = document.getElementById('yearLevelInput').value.toLowerCase();
+            const idNumber = document.getElementById('idNumberInput').value.toLowerCase();
             
             const results = users.filter(user => 
-                (name === '' || (user.name.toLowerCase().includes(name) || `${user.name.toLowerCase()} ${user.yearLevel}`.includes(name))) &&
+                (name === '' || user.name.toLowerCase().includes(name)) &&
                 (yearLevel === '' || user.yearLevel.toLowerCase().includes(yearLevel)) &&
                 (idNumber === '' || user.idNumber.toLowerCase().includes(idNumber))
             );
             
-            displayResults(results, { name, yearLevel, idNumber });
+            displayResults(results);
         }
 
-        function displayResults(results, searchTerms) {
+        function displayResults(results) {
             const resultsDiv = document.getElementById('searchResults');
             resultsDiv.innerHTML = '';
 
             if (results.length === 0) {
-                const searchMessage = [
-                    searchTerms.name ? `name: "${searchTerms.name}"` : null,
-                    searchTerms.yearLevel ? `year level: "${searchTerms.yearLevel}"` : null,
-                    searchTerms.idNumber ? `ID number: "${searchTerms.idNumber}"` : null
-                ].filter(term => term).join(", ");
-                
-                resultsDiv.innerHTML = `<p>No results found for ${searchMessage}</p>`;
+                resultsDiv.innerHTML = '<p>No results found</p>';
                 return;
             }
 
@@ -104,9 +107,11 @@
                 resultItem.className = 'resultItem';
                 resultItem.innerHTML = `
                     <img src="${user.image}" alt="${user.name}">
-                    <p>Name: ${user.name}</p>
-                    <p>Year Level: ${user.yearLevel}</p>
-                    <p>ID Number: ${user.idNumber}</p>
+                    <div>
+                        <p>Name: ${user.name}</p>
+                        <p>Year Level: ${user.yearLevel}</p>
+                        <p>ID Number: ${user.idNumber}</p>
+                    </div>
                 `;
                 resultsDiv.appendChild(resultItem);
             });
