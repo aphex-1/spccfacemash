@@ -127,6 +127,13 @@
             `).join('');
         }
 
+        function similarResults(query, person) {
+            const lowerQuery = query.toLowerCase();
+            return person.firstName.toLowerCase().includes(lowerQuery) ||
+                   person.lastName.toLowerCase().includes(lowerQuery) ||
+                   person.graduated.toLowerCase().includes(lowerQuery);
+        }
+
         searchButton.addEventListener('click', () => {
             const query = searchInput.value.trim().toLowerCase();
             let results = [];
@@ -143,11 +150,7 @@
                 }
             } else {
                 // Query is a string, search by name or graduated status
-                results = placeholders.filter(person => 
-                    person.firstName.toLowerCase().includes(query) ||
-                    person.lastName.toLowerCase().includes(query) ||
-                    person.graduated.toLowerCase().includes(query)
-                );
+                results = placeholders.filter(person => similarResults(query, person));
             }
 
             renderResults(results);
