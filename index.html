@@ -61,6 +61,7 @@
             width: 150px;
             height: 150px;
             object-fit: cover;
+            border-radius: 5px;
         }
         
         .search-result p {
@@ -99,70 +100,52 @@
 
         // Placeholder data
         const placeholders = [
-            { firstName: 'Alan', lastName: 'Smith', yearLevel: 3, graduated: 'No', id: 1001 },
-            { firstName: 'Sarah', lastName: 'Johnson', yearLevel: 2, graduated: 'No', id: 1002 },
-            { firstName: 'Alan', lastName: 'Alimni', yearLevel: 4, graduated: 'Yes', id: 1003 },
-            { firstName: 'Emily', lastName: 'Davis', yearLevel: 1, graduated: 'No', id: 1004 },
-            { firstName: 'Brian', lastName: 'Lee', yearLevel: 3, graduated: 'No', id: 1005 },
-            { firstName: 'Jessica', lastName: 'Wilson', yearLevel: 2, graduated: 'No', id: 1006 },
-            { firstName: 'Alan', lastName: 'Black', yearLevel: 3, graduated: 'No', id: 1007 },
-            { firstName: 'Megan', lastName: 'White', yearLevel: 4, graduated: 'Yes', id: 1008 },
-            { firstName: 'Daniel', lastName: 'Brown', yearLevel: 1, graduated: 'No', id: 1009 },
-            { firstName: 'Laura', lastName: 'Green', yearLevel: 2, graduated: 'No', id: 1010 },
-            { firstName: 'Tom', lastName: 'Wilson', yearLevel: 1, graduated: 'No', id: 1011 },
-            { firstName: 'Nina', lastName: 'Taylor', yearLevel: 3, graduated: 'Yes', id: 1012 },
-            { firstName: 'Zack', lastName: 'Taylor', yearLevel: 4, graduated: 'No', id: 1013 },
-            { firstName: 'Mia', lastName: 'Anderson', yearLevel: 2, graduated: 'No', id: 1014 },
-            { firstName: 'Sophia', lastName: 'Thomas', yearLevel: 3, graduated: 'Yes', id: 1015 },
-            { firstName: 'Ryan', lastName: 'Moore', yearLevel: 1, graduated: 'No', id: 1016 },
-            { firstName: 'Olivia', lastName: 'Jackson', yearLevel: 2, graduated: 'No', id: 1017 },
-            { firstName: 'Jacob', lastName: 'Martin', yearLevel: 4, graduated: 'Yes', id: 1018 },
-            { firstName: 'Emma', lastName: 'Lee', yearLevel: 3, graduated: 'No', id: 1019 },
-            { firstName: 'Liam', lastName: 'Harris', yearLevel: 2, graduated: 'No', id: 1020 },
-            { firstName: 'Ava', lastName: 'Clark', yearLevel: 1, graduated: 'No', id: 1021 },
-            { firstName: 'Ethan', lastName: 'Lewis', yearLevel: 4, graduated: 'Yes', id: 1022 },
-            { firstName: 'Isabella', lastName: 'Walker', yearLevel: 3, graduated: 'No', id: 1023 },
-            { firstName: 'Mason', lastName: 'Young', yearLevel: 2, graduated: 'No', id: 1024 },
-            { firstName: 'Charlotte', lastName: 'Hall', yearLevel: 1, graduated: 'No', id: 1025 },
-            { firstName: 'James', lastName: 'Allen', yearLevel: 4, graduated: 'Yes', id: 1026 },
-            { firstName: 'Amelia', lastName: 'King', yearLevel: 3, graduated: 'No', id: 1027 },
-            { firstName: 'Alexander', lastName: 'Wright', yearLevel: 2, graduated: 'No', id: 1028 },
-            { firstName: 'Harper', lastName: 'Scott', yearLevel: 1, graduated: 'No', id: 1029 },
-            { firstName: 'Benjamin', lastName: 'Green', yearLevel: 4, graduated: 'Yes', id: 1030 },
-            { firstName: 'Ella', lastName: 'Adams', yearLevel: 3, graduated: 'No', id: 1031 },
-            { firstName: 'Lucas', lastName: 'Nelson', yearLevel: 2, graduated: 'No', id: 1032 },
-            { firstName: 'Avery', lastName: 'Baker', yearLevel: 1, graduated: 'No', id: 1033 },
-            { firstName: 'Jack', lastName: 'Mitchell', yearLevel: 4, graduated: 'Yes', id: 1034 },
-            { firstName: 'Scarlett', lastName: 'Carter', yearLevel: 3, graduated: 'No', id: 1035 },
-            { firstName: 'Henry', lastName: 'Roberts', yearLevel: 2, graduated: 'No', id: 1036 },
-            { firstName: 'Lily', lastName: 'Phillips', yearLevel: 1, graduated: 'No', id: 1037 },
-            { firstName: 'Sebastian', lastName: 'Evans', yearLevel: 4, graduated: 'Yes', id: 1038 },
-            { firstName: 'Zoe', lastName: 'Morris', yearLevel: 3, graduated: 'No', id: 1039 },
-            { firstName: 'William', lastName: 'Mitchell', yearLevel: 2, graduated: 'No', id: 1040 },
-            { firstName: 'Chloe', lastName: 'Rodriguez', yearLevel: 2, graduated: 'No', id: 1041 },
+            { firstName: 'John', lastName: 'Doe', yearLevel: 1, graduated: 'No', id: 1001 },
+            { firstName: 'Jane', lastName: 'Smith', yearLevel: 2, graduated: 'No', id: 1002 },
+            { firstName: 'Alice', lastName: 'Johnson', yearLevel: 3, graduated: 'Yes', id: 1003 },
+            { firstName: 'Bob', lastName: 'Williams', yearLevel: 4, graduated: 'Yes', id: 1004 },
+            { firstName: 'Charlie', lastName: 'Brown', yearLevel: 1, graduated: 'No', id: 1005 },
+            { firstName: 'David', lastName: 'Jones', yearLevel: 2, graduated: 'No', id: 1006 },
+            { firstName: 'Emma', lastName: 'Davis', yearLevel: 3, graduated: 'Yes', id: 1007 },
+            { firstName: 'Fiona', lastName: 'Wilson', yearLevel: 4, graduated: 'Yes', id: 1008 },
+            { firstName: 'George', lastName: 'Miller', yearLevel: 1, graduated: 'No', id: 1009 },
+            { firstName: 'Hannah', lastName: 'Taylor', yearLevel: 2, graduated: 'No', id: 1010 },
+            { firstName: 'Isaac', lastName: 'Moore', yearLevel: 3, graduated: 'Yes', id: 1011 },
+            { firstName: 'Jasmine', lastName: 'Anderson', yearLevel: 4, graduated: 'Yes', id: 1012 },
+            { firstName: 'Kyle', lastName: 'Thomas', yearLevel: 1, graduated: 'No', id: 1013 },
+            { firstName: 'Lily', lastName: 'Jackson', yearLevel: 2, graduated: 'No', id: 1014 },
+            { firstName: 'Mason', lastName: 'White', yearLevel: 3, graduated: 'Yes', id: 1015 },
+            { firstName: 'Nora', lastName: 'Harris', yearLevel: 4, graduated: 'Yes', id: 1016 },
+            { firstName: 'Owen', lastName: 'Martin', yearLevel: 1, graduated: 'No', id: 1017 },
+            { firstName: 'Paige', lastName: 'Thompson', yearLevel: 2, graduated: 'No', id: 1018 },
+            { firstName: 'Quinn', lastName: 'Garcia', yearLevel: 3, graduated: 'Yes', id: 1019 },
+            { firstName: 'Ryan', lastName: 'Martinez', yearLevel: 4, graduated: 'Yes', id: 1020 },
+            { firstName: 'Sophia', lastName: 'Rodriguez', yearLevel: 1, graduated: 'No', id: 1021 },
+            { firstName: 'Tom', lastName: 'Lee', yearLevel: 2, graduated: 'No', id: 1022 },
+            { firstName: 'Uma', lastName: 'Walker', yearLevel: 3, graduated: 'Yes', id: 1023 },
+            { firstName: 'Vera', lastName: 'Hall', yearLevel: 4, graduated: 'Yes', id: 1024 },
+            { firstName: 'Will', lastName: 'Allen', yearLevel: 1, graduated: 'No', id: 1025 },
+            { firstName: 'Xena', lastName: 'Young', yearLevel: 2, graduated: 'No', id: 1026 },
+            { firstName: 'Yara', lastName: 'King', yearLevel: 3, graduated: 'Yes', id: 1027 },
+            { firstName: 'Zane', lastName: 'Wright', yearLevel: 4, graduated: 'Yes', id: 1028 },
+            { firstName: 'Alice', lastName: 'Miller', yearLevel: 1, graduated: 'No', id: 1029 },
+            { firstName: 'Bob', lastName: 'Wilson', yearLevel: 2, graduated: 'No', id: 1030 },
+            { firstName: 'Cathy', lastName: 'Moore', yearLevel: 3, graduated: 'Yes', id: 1031 },
+            { firstName: 'Derek', lastName: 'Taylor', yearLevel: 4, graduated: 'Yes', id: 1032 },
+            { firstName: 'Ella', lastName: 'Brown', yearLevel: 1, graduated: 'No', id: 1033 },
+            { firstName: 'Frank', lastName: 'White', yearLevel: 2, graduated: 'No', id: 1034 },
+            { firstName: 'Grace', lastName: 'Johnson', yearLevel: 3, graduated: 'Yes', id: 1035 },
+            { firstName: 'Hank', lastName: 'Williams', yearLevel: 4, graduated: 'Yes', id: 1036 },
+            { firstName: 'Ivy', lastName: 'Miller', yearLevel: 1, graduated: 'No', id: 1037 },
+            { firstName: 'Jack', lastName: 'Moore', yearLevel: 2, graduated: 'No', id: 1038 },
+            { firstName: 'Kim', lastName: 'Wilson', yearLevel: 3, graduated: 'Yes', id: 1039 },
+            { firstName: 'Liam', lastName: 'Davis', yearLevel: 4, graduated: 'Yes', id: 1040 },
+            { firstName: 'Mia', lastName: 'Taylor', yearLevel: 1, graduated: 'No', id: 1041 },
             { firstName: 'Michael', lastName: 'Cook', yearLevel: 4, graduated: 'Yes', id: 1042 },
             { firstName: 'Aiden', lastName: 'Bennett', yearLevel: 3, graduated: 'No', id: 1043 },
-            { firstName: 'Harper', lastName: 'Reed', yearLevel: 2, graduated: 'No', id: 1044 },
-            { firstName: 'Madison', lastName: 'Cook', yearLevel: 4, graduated: 'Yes', id: 1045 },
-            { firstName: 'Noah', lastName: 'Bailey', yearLevel: 1, graduated: 'No', id: 1046 },
-            { firstName: 'Liam', lastName: 'Morris', yearLevel: 3, graduated: 'No', id: 1047 },
-            { firstName: 'Emma', lastName: 'Ward', yearLevel: 2, graduated: 'No', id: 1048 },
-            { firstName: 'Olivia', lastName: 'Price', yearLevel: 4, graduated: 'Yes', id: 1049 },
-            { firstName: 'Lucas', lastName: 'Gray', yearLevel: 1, graduated: 'No', id: 1050 },
-            { firstName: 'Sophia', lastName: 'Bell', yearLevel: 3, graduated: 'No', id: 1051 },
-            { firstName: 'Benjamin', lastName: 'Wood', yearLevel: 2, graduated: 'No', id: 1052 },
-            { firstName: 'Charlotte', lastName: 'Sullivan', yearLevel: 4, graduated: 'Yes', id: 1053 },
-            { firstName: 'Jack', lastName: 'Fraser', yearLevel: 1, graduated: 'No', id: 1054 },
-            { firstName: 'Isabella', lastName: 'Long', yearLevel: 3, graduated: 'No', id: 1055 },
-            { firstName: 'Aiden', lastName: 'Morris', yearLevel: 2, graduated: 'No', id: 1056 },
-            { firstName: 'Mia', lastName: 'Wright', yearLevel: 4, graduated: 'Yes', id: 1057 },
-            { firstName: 'Ethan', lastName: 'Adams', yearLevel: 1, graduated: 'No', id: 1058 },
-            { firstName: 'Harper', lastName: 'Morgan', yearLevel: 3, graduated: 'No', id: 1059 },
-            { firstName: 'Amelia', lastName: 'James', yearLevel: 2, graduated: 'No', id: 1060 },
-            { firstName: 'Logan', lastName: 'Evans', yearLevel: 4, graduated: 'Yes', id: 1061 },
-            { firstName: 'Ella', lastName: 'Perry', yearLevel: 1, graduated: 'No', id: 1062 },
-            { firstName: 'James', lastName: 'Cole', yearLevel: 3, graduated: 'No', id: 1063 },
-            { firstName: 'Mia', lastName: 'Jenkins', yearLevel: 2, graduated: 'No', id: 1064 }
+            { firstName: 'Zoe', lastName: 'James', yearLevel: 2, graduated: 'Yes', id: 1044 },
+            { firstName: 'Ethan', lastName: 'Parker', yearLevel: 1, graduated: 'No', id: 1045 },
+            { firstName: 'Oliver', lastName: 'Young', yearLevel: 4, graduated: 'Yes', id: 1046 }
         ];
 
         function renderResults(results) {
@@ -183,11 +166,18 @@
 
         function similarResults(query, person) {
             const lowerQuery = query.toLowerCase();
+            const firstNameLower = person.firstName.toLowerCase();
+            const lastNameLower = person.lastName.toLowerCase();
+
             // Check for matches in first name first, then last name
-            const matchFirstName = person.firstName.toLowerCase().includes(lowerQuery);
-            const matchLastName = person.lastName.toLowerCase().includes(lowerQuery);
+            const matchFirstName = firstNameLower.includes(lowerQuery);
+            const matchLastName = lastNameLower.includes(lowerQuery);
 
             return matchFirstName || (matchLastName && !matchFirstName);
+        }
+
+        function startsWith(query, text) {
+            return text.toLowerCase().startsWith(query.toLowerCase());
         }
 
         searchButton.addEventListener('click', () => {
@@ -198,23 +188,30 @@
                 const numQuery = parseInt(query, 10);
 
                 if (numQuery >= 1 && numQuery <= 12) {
-                    // Query is a number between 1 and 12, search by year level
                     results = placeholders.filter(person => person.yearLevel === numQuery);
                 } else if (query.length === 4) {
-                    // Query is a 4-digit number, search by ID
                     results = placeholders.filter(person => person.id === numQuery);
                 }
             } else {
-                // Query is a string, search by name or graduated status
                 results = placeholders.filter(person => similarResults(query, person));
             }
 
-            // Sort results: prioritize first name matches over last name matches
+            // Sort results: prioritize names starting with the query
             results.sort((a, b) => {
-                const aFirstNameMatch = a.firstName.toLowerCase().includes(query);
-                const bFirstNameMatch = b.firstName.toLowerCase().includes(query);
+                const aFirstNameMatch = startsWith(query, a.firstName);
+                const bFirstNameMatch = startsWith(query, b.firstName);
 
-                return (bFirstNameMatch - aFirstNameMatch) || (b.lastName.toLowerCase().includes(query) - a.lastName.toLowerCase().includes(query));
+                if (aFirstNameMatch && !bFirstNameMatch) return -1;
+                if (!aFirstNameMatch && bFirstNameMatch) return 1;
+
+                const aLastNameMatch = startsWith(query, a.lastName);
+                const bLastNameMatch = startsWith(query, b.lastName);
+
+                if (aLastNameMatch && !bLastNameMatch) return -1;
+                if (!aLastNameMatch && bLastNameMatch) return 1;
+
+                // Secondary sort for results containing the query
+                return a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase());
             });
 
             renderResults(results);
