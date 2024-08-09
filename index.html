@@ -139,9 +139,8 @@
             { firstName: 'Sebastian', lastName: 'Evans', yearLevel: 4, graduated: 'Yes', id: 1038 },
             { firstName: 'Zoe', lastName: 'Morris', yearLevel: 3, graduated: 'No', id: 1039 },
             { firstName: 'William', lastName: 'Mitchell', yearLevel: 2, graduated: 'No', id: 1040 },
-            // Additional entries
             { firstName: 'Chloe', lastName: 'Rodriguez', yearLevel: 2, graduated: 'No', id: 1041 },
-            { firstName: 'Ethan', lastName: 'Gonzalez', yearLevel: 4, graduated: 'Yes', id: 1042 },
+            { firstName: 'Michael', lastName: 'Cook', yearLevel: 4, graduated: 'Yes', id: 1042 },
             { firstName: 'Aiden', lastName: 'Bennett', yearLevel: 3, graduated: 'No', id: 1043 },
             { firstName: 'Harper', lastName: 'Reed', yearLevel: 2, graduated: 'No', id: 1044 },
             { firstName: 'Madison', lastName: 'Cook', yearLevel: 4, graduated: 'Yes', id: 1045 },
@@ -153,7 +152,7 @@
             { firstName: 'Sophia', lastName: 'Bell', yearLevel: 3, graduated: 'No', id: 1051 },
             { firstName: 'Benjamin', lastName: 'Wood', yearLevel: 2, graduated: 'No', id: 1052 },
             { firstName: 'Charlotte', lastName: 'Sullivan', yearLevel: 4, graduated: 'Yes', id: 1053 },
-            { firstName: 'Jack', lastName: 'Murphy', yearLevel: 1, graduated: 'No', id: 1054 },
+            { firstName: 'Jack', lastName: 'Fraser', yearLevel: 1, graduated: 'No', id: 1054 },
             { firstName: 'Isabella', lastName: 'Long', yearLevel: 3, graduated: 'No', id: 1055 },
             { firstName: 'Aiden', lastName: 'Morris', yearLevel: 2, graduated: 'No', id: 1056 },
             { firstName: 'Mia', lastName: 'Wright', yearLevel: 4, graduated: 'Yes', id: 1057 },
@@ -176,8 +175,7 @@
                 <div class="search-result">
                     <img src="https://via.placeholder.com/150" alt="${person.firstName} ${person.lastName}">
                     <p>${person.firstName} ${person.lastName}</p>
-                    <p>Year: ${person.yearLevel}</p>
-                    <p>Graduated: ${person.graduated}</p>
+                    <p>Year: ${person.graduated === 'Yes' ? 'Alumnus' : person.yearLevel}</p>
                     <p>ID: ${person.id}</p>
                 </div>
             `).join('');
@@ -210,6 +208,14 @@
                 // Query is a string, search by name or graduated status
                 results = placeholders.filter(person => similarResults(query, person));
             }
+
+            // Sort results: prioritize first name matches over last name matches
+            results.sort((a, b) => {
+                const aFirstNameMatch = a.firstName.toLowerCase().includes(query);
+                const bFirstNameMatch = b.firstName.toLowerCase().includes(query);
+
+                return (bFirstNameMatch - aFirstNameMatch) || (b.lastName.toLowerCase().includes(query) - a.lastName.toLowerCase().includes(query));
+            });
 
             renderResults(results);
         });
